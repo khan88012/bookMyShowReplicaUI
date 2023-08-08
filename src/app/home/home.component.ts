@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { TestService } from '../test.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { TestService } from '../test.service';
 })
 export class HomeComponent implements OnInit{
 
-  constructor(private service:TestService,private router:Router){
+  constructor(private service:TestService,private router:Router, private jwtHelper: JwtHelperService){
 
   }
 
@@ -79,5 +80,9 @@ export class HomeComponent implements OnInit{
     this.service.variable1 = this.patan;
     this.router.navigate(['booking']);
   }
+
+ 
+
+
 
 }

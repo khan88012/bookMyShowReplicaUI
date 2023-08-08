@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { TestService } from '../test.service';
 
 
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit{
   usernamee:any;
   
 
-  constructor(private service:TestService){
+  constructor(private service:TestService ,private jwtHelper: JwtHelperService){
     
 
   }
@@ -31,6 +32,21 @@ ok:Boolean=true;
   signout(){
     this.ok=true;
     this.okk=false;
+  }
+
+
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("jwt");
+  
+    if (token && !this.jwtHelper.isTokenExpired(token)){
+      return true;
+    }
+  
+    return false;
+  }
+  
+  logOut = () => {
+    localStorage.removeItem("jwt");
   }
 }
 

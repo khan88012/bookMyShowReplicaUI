@@ -14,8 +14,16 @@ import { ContactComponent } from './contact/contact.component';
 import { SignupComponent } from './signup/signup.component';
 import { BookingComponent } from './booking/booking.component';
 import { ReviewComponent } from './review/review.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestService } from './test.service';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './guard/auth.guard';
+
+export function tokenGetter() { 
+  return localStorage.getItem("jwt"); 
+}
 
 @NgModule({
   declarations: [
@@ -26,7 +34,8 @@ import { TestService } from './test.service';
     ContactComponent,
     SignupComponent,
     BookingComponent,
-    ReviewComponent
+    ReviewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +45,18 @@ import { TestService } from './test.service';
     MatButtonModule,
     MatIconModule,
     MatButtonToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    JwtModule.forRoot({
+      config:{
+        tokenGetter : tokenGetter,
+        allowedDomains:["localhost:7079"],
+        disallowedRoutes:[]      }
+    
+    })
   ],
-  providers: [TestService],
+  providers: [TestService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
