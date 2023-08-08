@@ -1,0 +1,39 @@
+<!-- <p>login works!</p>
+<div class="container">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <h2 class="form-signin-heading">Login</h2>
+        <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+        <br/>
+        <label for="username" class="sr-only">Email address</label>
+        <input type="email" id="username" name="username" [(ngModel)]="credentials.username" 
+          class="form-control" placeholder="User Name" required>
+        <br/>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="credentials.password" 
+          class="form-control" placeholder="Password" required>
+        <br/>
+        <button class="btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Log in</button>
+    </form>
+  </div> -->
+
+<div class="center">
+    <h1>Login</h1>
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <div class="txt_field">
+            <input type="text" id="username" name="username" [(ngModel)]="credentials.username" required>
+            <span></span>
+            <label for="username">UserName</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" id="password" name="password" [(ngModel)]="credentials.password" required>
+            <span></span>
+            <label for="password">Password</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Log in</button>
+
+        <div class="signup_link">
+            Not a member? <a href="#">Signup</a>
+        </div>
+    </form>
+</div>
