@@ -22,7 +22,9 @@ steps:
   displayName: 'npm install and build'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'dist'
-    ArtifactName: 'dist'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/docs'
+    ArtifactName: 'drop'
+ 
+   
 
     
