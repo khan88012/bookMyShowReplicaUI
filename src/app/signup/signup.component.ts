@@ -2,6 +2,9 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TestService } from '../test.service';
+import { Credential } from '../interfaces/Credential';
+import { NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -10,8 +13,9 @@ import { TestService } from '../test.service';
 })
 export class SignupComponent implements OnInit{
   document:any;
+  credentials: Credential = {username:'', password:''};
   
-  constructor(@Inject(DOCUMENT) document:Document,private router:Router,private service:TestService){
+  constructor(@Inject(DOCUMENT) document:Document,private router:Router,private service:TestService, private http : HttpClient){
     
  
   }
@@ -20,24 +24,40 @@ export class SignupComponent implements OnInit{
     
   }
 
-  loginUser(): void {
+  validate(): void {
 
     
 
-    var emailInput = (<HTMLInputElement>document.getElementById('uname')).value.trim();
-    var passInput = (<HTMLInputElement>document.getElementById('pwd')).value.trim();
-    var emailFormat = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+    var username = (<HTMLInputElement>document.getElementById('username')).value.trim();
+    var passInput = (<HTMLInputElement>document.getElementById('password')).value.trim();
 
   
-    if(!emailInput.match(emailFormat)){
-        alert("Please enter a valid email!");
+    if(username == ''){
+        alert("Username field can not be empty!");
     }else if(passInput ==''){
       alert("Password field can not be empty!");
     }else{
-      this.router.navigate(['home']);
+      this.router.navigate(['login']);
     }
 
         
+  }
+
+  signup(form : NgForm){
+    console.log("this is form", form, this.credentials);
+    if(form.valid)
+    {
+      this.http.post<string>("https://localhost:7079/api/Auth/Signup", this.credentials, {
+        headers: new HttpHeaders({ "Content-Type": "application/json"})
+      }).subscribe(
+        {
+          next: (response : string) => {
+            console.log(response);
+          }
+        }
+      )
+    }
+    
   }
 
 }

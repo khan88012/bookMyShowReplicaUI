@@ -1,5 +1,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   <span><mat-icon>theaters</mat-icon>Movie Time</span>
+  <span style="margin-left: 20px; color: yellow;" *ngIf="isUserAuthenticated()">Welcome, {{username}}!!!</span>
 
   <div class="spacer"></div>
 

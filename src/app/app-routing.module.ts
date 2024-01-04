@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'movies', component: MoviesComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'booking/:id/:name/:location', component: BookingComponent },
+  { path: 'booking/:id/:name/:location', component: BookingComponent , canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   // { path: 'booking/:id', component: BookingComponent },
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticatedResponse } from '../interfaces/authenticationResponse';
-import { LoginModel } from '../interfaces/loginModel';
+import { Credential } from '../interfaces/Credential';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { LoginModel } from '../interfaces/loginModel';
 
 export class LoginComponent implements OnInit {
   invalidLogin!: boolean;
-  credentials: LoginModel = {username:'', password:''};
+  credentials: Credential = {username:'', password:''};
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response: AuthenticatedResponse) => {
           const token = response.token;
+          const username = response.username;
           localStorage.setItem("jwt", token); 
+          localStorage.setItem("username", username);
           this.invalidLogin = false; 
           this.router.navigate(["/"]);
         },

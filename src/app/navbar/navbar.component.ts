@@ -11,15 +11,15 @@ import { TestService } from '../test.service';
 export class NavbarComponent implements OnInit{
 
   
-  usernamee:any;
+  username='';
   
 
   constructor(private service:TestService ,private jwtHelper: JwtHelperService){
-    
+
 
   }
   ngOnInit(): void {
-  
+
   
 }
 
@@ -37,6 +37,8 @@ ok:Boolean=true;
 
   isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("jwt");
+    this.username = localStorage.getItem("username") || '';
+    console.log(this.username);
   
     if (token && !this.jwtHelper.isTokenExpired(token)){
       return true;
@@ -47,6 +49,7 @@ ok:Boolean=true;
   
   logOut = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("username");
   }
 }
 
