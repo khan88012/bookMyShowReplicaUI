@@ -1,3 +1,3 @@
 export const environment ={
-    baseUrl: "https://localhost:7079/"
+    baseUrl: "https://bookmovieapiwithdb.azurewebsites.net/"
 }
